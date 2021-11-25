@@ -1,0 +1,34 @@
+@layout('layouts.dashboard')
+
+@section('content')
+    <main id="main" class="main">
+        <!-- Table with stripped rows -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">Start Date</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      @each(customer in customers)
+      <tr>
+        <td>{{customer.name}}</td>
+        <td>{{customer.email}}</td>
+        <td>211A flip flat</td>
+        <td>{{customer.createAt.toDateString()}}</td>
+      </tr>
+      @endeach
+    </tbody>
+    
+    
+      
+  </table>
+  <!-- End Table with stripped rows -->
+
+    </main>
+  
+@endsection

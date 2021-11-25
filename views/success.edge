@@ -1,0 +1,18 @@
+
+@layout('layouts.check')
+
+@section('content')
+    <div class="main">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 container3 text-white p-3">
+                <div class="container p-5">
+                    <h3 class="text-center">
+                        {{donor.full_name}} Your payment of {{donor.amount/100}} was successful
+                    </h3>
+                </div>
+                <button type="submit" class="pt-2"><a href="/">Ok</a></button>
+            </div>
+        </div>
+    </div>
+@endsection                        
+
