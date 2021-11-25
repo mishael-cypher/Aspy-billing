@@ -1,5 +1,8 @@
 const User = require("../models/User")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+require('dotenv').config()
+const { SECRET } = process.env
 
 exports.loginUser = async (req, res) => {
     const email = req.body.email
@@ -14,7 +17,31 @@ exports.loginUser = async (req, res) => {
             if(isMatch){
                 console.log("login successful")
                 // store user session
-                res.session.userId = user._id
+                const payload = {
+                    user: {
+                        id: user.id
+                    }
+                }
+
+                jwt.sign(
+                    payload,
+                    SECRET,
+                    {
+                        expiresin: 36000,
+                    },
+                    (err, token) => {
+                        if(err) throw err
+                        res.json({
+                            statusCode: 200,
+                            message: 'Logged in successfully',
+                            user: {
+                                name: user.lastName,
+                                email: user.email,
+                            }
+                        })
+                    }
+                )
+        
                 res.redirect('/')
             } else{
                 console.log(error)

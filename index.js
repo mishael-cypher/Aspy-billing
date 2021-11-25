@@ -5,7 +5,6 @@ const bodyParser = require("body-parser")
 const userControllers = require('./controllers/userControllers')
 const path = require("path")
 const multer = require("multer")
-const MongoStore = require('connect-mongo')
 const expressSession = require('express-session')
 const dashControllers = require("./controllers/dashControllers")
 const paystackControllers = require("./controllers/paystackControllers")
@@ -25,23 +24,10 @@ app.use(engine)
 app.set('views', `${__dirname}/views`)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-// app.use(expressSession({
-//     secret: 'secret',
-//     resave: false,
-//     saveUninitialized: true,
-//     store: new MongoStore({
-//         url: 'mongodb://localhost:27017/aspy-billing',
-//         expiresIn: 14*24*60,
-//         autoRemove: 'native' 
-//     })
-// }))
+
 
 // For Parsing multipart/form-data
 app.use(form.array())
-
-
-
-
 
 
 
