@@ -16,31 +16,32 @@ exports.loginUser = async (req, res) => {
             const isMatch = await bcrypt.compare(password, user.password)
             if(isMatch){
                 console.log("login successful")
+                req.session.userId = user._id
                 // store user session
-                const payload = {
-                    user: {
-                        id: user.id
-                    }
-                }
+                // const payload = {
+                //     user: {
+                //         id: user.id
+                //     }
+                // }
 
-                jwt.sign(
-                    payload,
-                    SECRET,
-                    {
-                        expiresin: 36000,
-                    },
-                    (err, token) => {
-                        if(err) throw err
-                        res.json({
-                            statusCode: 200,
-                            message: 'Logged in successfully',
-                            user: {
-                                name: user.lastName,
-                                email: user.email,
-                            }
-                        })
-                    }
-                )
+                // jwt.sign(
+                //     payload,
+                //     SECRET,
+                //     {
+                //         expiresin: 36000,
+                //     },
+                //     (err, token) => {
+                //         if(err) throw err
+                //         res.json({
+                //             statusCode: 200,
+                //             message: 'Logged in successfully',
+                //             user: {
+                //                 name: user.lastName,
+                //                 email: user.email,
+                //             }
+                //         })
+                //     }
+                // )
         
                 res.redirect('/')
             } else{

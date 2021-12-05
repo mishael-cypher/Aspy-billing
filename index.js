@@ -5,7 +5,7 @@ const bodyParser = require("body-parser")
 const userControllers = require('./controllers/userControllers')
 const path = require("path")
 const multer = require("multer")
-const expressSession = require('express-session')
+const session = require('express-session')
 const dashControllers = require("./controllers/dashControllers")
 const paystackControllers = require("./controllers/paystackControllers")
 
@@ -18,6 +18,9 @@ const app = express()
 const form = multer()
 
 const MONGO_URL = 'mongodb://localhost:27017/aspy-billing'
+const SESS_LIFETIME = 1000 * 60 * 60
+const SESS_NAME = 'sid'
+
 
 app.use(express.static('public'))
 app.use(engine)
@@ -29,7 +32,16 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // For Parsing multipart/form-data
 app.use(form.array())
 
-
+app.use(session({
+    name : SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: 'secret',
+    cookie: {
+        maxAge: SESS_LIFETIME,
+        sameSite: true // 'strict'    
+    }
+}))
 
 
 
